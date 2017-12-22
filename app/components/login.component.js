@@ -13,6 +13,16 @@ var LoginComponent = (function () {
     function LoginComponent() {
         this.titulo = "Formulario de login";
     }
+    LoginComponent.prototype.ngOnInit = function () {
+        this.user = {
+            "email": "",
+            "password": "",
+            "gethash": "false"
+        };
+    };
+    LoginComponent.prototype.onSubmit = function () {
+        console.log(this.user);
+    };
     LoginComponent = __decorate([
         core_1.Component({
             selector: 'login',

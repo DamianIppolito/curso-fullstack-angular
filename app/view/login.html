@@ -3,14 +3,16 @@
   <h1>{{titulo}}</h1>
   <hr/>
 
-  <form class="col-md-4" action="" method="post">
+  <form #loginForm="ngForm" (ngSubmit)="onSubmit()" class="col-md-4" action="" method="post">
     <p>
       <label>Correo Electrónico</label>
-      <input type="email" class="form-control" required value="">
+      <input type="email" #email="ngForm" ngControl="email" class="form-control" required [(ngModel)]="user.email" value=""/>
+      <span *ngIf="!email.valid">El email es obligatorio</span>
     </p>
     <p>
       <label>Contraseña</label>
-      <input type="password" class="form-control" required value="">
+      <input type="password" #password="ngForm" class="form-control" required [(ngModel)]="user.password" value="">
+      <span *ngIf="!password.valid">la contraseña es obligatoria</span>
     </p>
     <input type="submit" name="" value="Entrar" class="btn btn-primary">
   </form>
