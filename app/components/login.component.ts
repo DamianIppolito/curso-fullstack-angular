@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {LoginService} from '../services/login.service';
+import {ROUTER_DIRECTIVES, Router, ActivatedRoute} from '@angular/router';
 
 @Component({
     selector: 'login',
@@ -15,19 +16,35 @@ export class LoginComponent implements OnInit {
   public token;
 
 
-  constructor(private _loginService: LoginService){}
+  constructor(
+    private _loginService: LoginService,
+    private _route: ActivatedRoute,
+    private _router: Router
+  ){}
 
   ngOnInit(){
+
+    this._route.params.subscribe(params => {
+      let logout = +params["id"];
+      if(logout == 1){
+        localStorage.removeItem('identity');
+        localStorage.removeItem('token');
+        this.identity = null;
+        this.token = null;
+
+        window.location.href="/login";
+        //this._router.navigate(["/index"]);
+      }
+    });
+
       this.user = {
         "email" : "",
         "password" : "",
         "getHash" : "false"
       };
 
-      let ide = this._loginService.getIdentity();
-      let tk = this._loginService.getToken();
-      console.log(ide);
-      console.log(tk);
+      this.identity = this._loginService.getIdentity();
+      this.token = this._loginService.getToken();
   }
 
   onSubmit(){
@@ -52,7 +69,7 @@ export class LoginComponent implements OnInit {
                 }else{
                   if(!token.status){
                     localStorage.setItem('token', token);
-                    //redireccio
+                    window.location.href="/";
                   }
                 }
               },

@@ -7,6 +7,7 @@ export const routes: RouterConfig = [
   {path: '', redirectTo: '/index', terminal: true},
   {path: 'index', component: DefaultComponent},
   {path: 'login', component: LoginComponent},
+  {path: 'login/:id', component: LoginComponent},
   {path: 'register', component: RegisterComponent}
 ];
 

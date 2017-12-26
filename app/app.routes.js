@@ -7,6 +7,7 @@ exports.routes = [
     { path: '', redirectTo: '/index', terminal: true },
     { path: 'index', component: default_component_1.DefaultComponent },
     { path: 'login', component: login_component_1.LoginComponent },
+    { path: 'login/:id', component: login_component_1.LoginComponent },
     { path: 'register', component: register_component_1.RegisterComponent }
 ];
 exports.APP_ROUTER_PROVIDERS = [router_1.provideRouter(exports.routes)];
