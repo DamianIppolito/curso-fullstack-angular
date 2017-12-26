@@ -19,13 +19,43 @@ var LoginComponent = (function () {
         this.user = {
             "email": "",
             "password": "",
-            "gethash": "false"
+            "getHash": "false"
         };
+        console.log(localStorage.getItem('token'));
+        console.log(localStorage.getItem('identity'));
     };
     LoginComponent.prototype.onSubmit = function () {
         var _this = this;
         this._loginService.signUp(this.user).subscribe(function (response) {
-            console.log(response);
+            var identity = response;
+            _this.identity = identity;
+            if (identity.length <= 1) {
+                alert("Error en el servidor");
+            }
+            else {
+                if (!identity.status) {
+                    localStorage.setItem('identity', JSON.stringify(identity));
+                    _this.user.getHash = 'true';
+                    _this._loginService.signUp(_this.user).subscribe(function (response) {
+                        var token = response;
+                        _this.token = token;
+                        if (token.length <= 0) {
+                            alert("Error en el servidor");
+                        }
+                        else {
+                            if (!token.status) {
+                                localStorage.setItem('token', token);
+                            }
+                        }
+                    }, function (error) {
+                        _this.errorMessage = error;
+                        if (_this.errorMessage != null) {
+                            console.log(_this.errorMessage);
+                            alert('Error en la petición');
+                        }
+                    });
+                }
+            }
         }, function (error) {
             _this.errorMessage = error;
             if (_this.errorMessage != null) {

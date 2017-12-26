@@ -11,6 +11,9 @@ export class LoginComponent implements OnInit {
   public titulo : string = "Formulario de login"
   public user;
   public errorMessage;
+  public identity;
+  public token;
+
 
   constructor(private _loginService: LoginService){}
 
@@ -18,14 +21,48 @@ export class LoginComponent implements OnInit {
       this.user = {
         "email" : "",
         "password" : "",
-        "gethash" : "false"
+        "getHash" : "false"
       };
+
+      console.log(localStorage.getItem('token'));
+      console.log(localStorage.getItem('identity'));
   }
 
   onSubmit(){
     this._loginService.signUp(this.user).subscribe(
       response => {
-        console.log(response);
+        let identity = response;
+        this.identity = identity;
+        if(identity.length <= 1){
+          alert("Error en el servidor");
+        }else{
+          if(!identity.status){
+            localStorage.setItem('identity', JSON.stringify(identity));
+
+            this.user.getHash = 'true';
+            this._loginService.signUp(this.user).subscribe(
+              response => {
+                let token = response;
+                this.token = token;
+                if(token.length <= 0){
+                  alert("Error en el servidor");
+                }else{
+                  if(!token.status){
+                    localStorage.setItem('token', token);
+                    //redireccio
+                  }
+                }
+              },
+              error => {
+                this.errorMessage = <any>error;
+                if(this.errorMessage != null){
+                  console.log(this.errorMessage);
+                  alert('Error en la petición');
+                }
+              }
+            );
+          }
+        }
       },
       error => {
         this.errorMessage = <any>error;
