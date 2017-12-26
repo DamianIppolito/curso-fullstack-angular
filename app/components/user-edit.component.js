@@ -21,6 +21,7 @@ var UserEditComponent = (function () {
     }
     UserEditComponent.prototype.ngOnInit = function () {
         var identity = this._userService.getIdentity();
+        this.identity = identity;
         if (identity == null) {
             this._router.navigate(["/index"]);
         }
@@ -31,10 +32,23 @@ var UserEditComponent = (function () {
     UserEditComponent.prototype.onSubmit = function () {
         var _this = this;
         console.log(this.user);
+        this.newPwd = this.user.password;
+        if (this.user.password == this.identity.password) {
+            this.user.password = "";
+        }
         this._userService.update_user(this.user).subscribe(function (response) {
             _this.status = response.status;
             if (_this.status != 'success') {
-                _this.status != 'error';
+                _this.status = 'error';
+            }
+            else {
+                if (_this.newPwd == _this.identity.password) {
+                    _this.user.password = _this.identity.password;
+                }
+                else {
+                    _this.user.password = _this.newPwd;
+                }
+                localStorage.setItem('identity', JSON.stringify(_this.user));
             }
         }, function (error) {
             _this.errorMessage = error;

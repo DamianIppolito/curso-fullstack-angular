@@ -43,9 +43,8 @@ export class LoginComponent implements OnInit {
         "getHash" : "false"
       };
 
-      this.identity = this._userService.getIdentity();
-      this.token = this._userService.getToken();
-      if(this.identity != null && this.identity.sub){
+      let identity = this._userService.getIdentity();
+      if(identity != null && this.identity.sub){
         this._router.navigate(["/index"]);
       }
   }
@@ -59,7 +58,7 @@ export class LoginComponent implements OnInit {
         if(identity.length <= 1){
           alert("Error en el servidor");
         }else{
-          if(!identity.status){
+          if(!this.identity.status){
             localStorage.setItem('identity', JSON.stringify(identity));
 
             this.user.getHash = 'true';
@@ -67,10 +66,10 @@ export class LoginComponent implements OnInit {
               response => {
                 let token = response;
                 this.token = token;
-                if(token.length <= 0){
+                if(this.token.length <= 0){
                   alert("Error en el servidor");
                 }else{
-                  if(!token.status){
+                  if(!this.token.status){
                     localStorage.setItem('token', token);
                     window.location.href="/";
                   }

@@ -35,9 +35,8 @@ var LoginComponent = (function () {
             "password": "",
             "getHash": "false"
         };
-        this.identity = this._userService.getIdentity();
-        this.token = this._userService.getToken();
-        if (this.identity != null && this.identity.sub) {
+        var identity = this._userService.getIdentity();
+        if (identity != null && this.identity.sub) {
             this._router.navigate(["/index"]);
         }
     };
@@ -51,17 +50,17 @@ var LoginComponent = (function () {
                 alert("Error en el servidor");
             }
             else {
-                if (!identity.status) {
+                if (!_this.identity.status) {
                     localStorage.setItem('identity', JSON.stringify(identity));
                     _this.user.getHash = 'true';
                     _this._userService.signUp(_this.user).subscribe(function (response) {
                         var token = response;
                         _this.token = token;
-                        if (token.length <= 0) {
+                        if (_this.token.length <= 0) {
                             alert("Error en el servidor");
                         }
                         else {
-                            if (!token.status) {
+                            if (!_this.token.status) {
                                 localStorage.setItem('token', token);
                                 window.location.href = "/";
                             }

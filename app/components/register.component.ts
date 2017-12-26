@@ -32,7 +32,7 @@ export class RegisterComponent implements OnInit{
       response => {
         this.status = response.status
         if(this.status != 'success'){
-          this.status != 'error';
+          this.status = 'error';
         }
       },
       error => {

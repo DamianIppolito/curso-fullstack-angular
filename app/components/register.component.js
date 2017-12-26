@@ -28,7 +28,7 @@ var RegisterComponent = (function () {
         this._userService.register(this.user).subscribe(function (response) {
             _this.status = response.status;
             if (_this.status != 'success') {
-                _this.status != 'error';
+                _this.status = 'error';
             }
         }, function (error) {
             _this.errorMessage = error;
