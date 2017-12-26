@@ -15,12 +15,12 @@
     <p>
       <label>Correo Electrónico</label>
       <input type="email" #email="ngForm" ngControl="email" class="form-control" required [(ngModel)]="user.email" value=""/>
-      <span *ngIf="!email.valid">El email es obligatorio</span>
+      <span *ngIf="!email.valid && email.touched">El email es obligatorio</span>
     </p>
     <p>
       <label>Contraseña</label>
       <input type="password" #password="ngForm" class="form-control" required [(ngModel)]="user.password" value="">
-      <span *ngIf="!password.valid">la contraseña es obligatoria</span>
+      <span *ngIf="!password.valid && password.touched">la contraseña es obligatoria</span>
     </p>
     <input type="submit" name="" value="Entrar" class="btn btn-primary">
   </form>
