@@ -21,8 +21,10 @@ var LoginComponent = (function () {
             "password": "",
             "getHash": "false"
         };
-        console.log(localStorage.getItem('token'));
-        console.log(localStorage.getItem('identity'));
+        var ide = this._loginService.getIdentity();
+        var tk = this._loginService.getToken();
+        console.log(ide);
+        console.log(tk);
     };
     LoginComponent.prototype.onSubmit = function () {
         var _this = this;

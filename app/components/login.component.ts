@@ -24,8 +24,10 @@ export class LoginComponent implements OnInit {
         "getHash" : "false"
       };
 
-      console.log(localStorage.getItem('token'));
-      console.log(localStorage.getItem('identity'));
+      let ide = this._loginService.getIdentity();
+      let tk = this._loginService.getToken();
+      console.log(ide);
+      console.log(tk);
   }
 
   onSubmit(){
