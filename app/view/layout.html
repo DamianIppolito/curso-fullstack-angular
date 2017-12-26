@@ -15,7 +15,7 @@
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
           <li><a class="navbar-brand" [routerLink]="['/index']">Home</a></li>
-          <li><a class="navbar-brand" [routerLink]="['/index']">Crear Video</a></li>
+          <li><a class="navbar-brand" [routerLink]="['/index']" *ngIf="identity">Crear Video</a></li>
         </ul>
         <ul *ngIf="identity" class="nav navbar-nav navbar-right" id="credentials-top">
           <li class="dropdown">
@@ -23,7 +23,10 @@
               {{identity.name}} {{identity.surname}} <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
-              <li><a [routerLink]="['/index']"><span class="glyphicon glyphicon-home glyphicon-menu-home" aria-hidden="true"></span>Mi canal</a></li>
+              <li><a [routerLink]="['/index']"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Mi canal</a></li>
+              <li><a [routerLink]="['/index']"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span>Ajustes</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a [routerLink]="['/index']"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>Salir</a></li>
             </ul>
           </li>
         </ul>
