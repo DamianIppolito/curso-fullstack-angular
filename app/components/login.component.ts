@@ -45,6 +45,9 @@ export class LoginComponent implements OnInit {
 
       this.identity = this._loginService.getIdentity();
       this.token = this._loginService.getToken();
+      if(this.identity != null && this.identity.sub){
+        this._router.navigate(["/index"]);
+      }
   }
 
   onSubmit(){
