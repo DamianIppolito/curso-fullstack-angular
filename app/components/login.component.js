@@ -28,6 +28,7 @@ var LoginComponent = (function () {
     };
     LoginComponent.prototype.onSubmit = function () {
         var _this = this;
+        this.user.getHash = 'false';
         this._loginService.signUp(this.user).subscribe(function (response) {
             var identity = response;
             _this.identity = identity;

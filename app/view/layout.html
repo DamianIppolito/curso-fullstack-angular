@@ -17,7 +17,17 @@
           <li><a class="navbar-brand" [routerLink]="['/index']">Home</a></li>
           <li><a class="navbar-brand" [routerLink]="['/index']">Crear Video</a></li>
         </ul>
-        <ul class="nav navbar-nav navbar-right">
+        <ul *ngIf="identity" class="nav navbar-nav navbar-right" id="credentials-top">
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+              {{identity.name}} {{identity.surname}} <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a [routerLink]="['/index']"><span class="glyphicon glyphicon-home glyphicon-menu-home" aria-hidden="true"></span>Mi canal</a></li>
+            </ul>
+          </li>
+        </ul>
+        <ul *ngIf="!identity" class="nav navbar-nav navbar-right">
           <li><a class="navbar-brand" [routerLink]="['/login']">Login</a></li>
           <li><a class="navbar-brand" [routerLink]="['/register']">Registro</a></li>
         </ul>

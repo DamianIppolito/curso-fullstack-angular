@@ -31,6 +31,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(){
+    this.user.getHash = 'false';
     this._loginService.signUp(this.user).subscribe(
       response => {
         let identity = response;
