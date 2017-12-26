@@ -9,11 +9,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var login_service_1 = require('../services/login.service');
+var user_service_1 = require('../services/user.service');
 var router_1 = require('@angular/router');
 var LoginComponent = (function () {
-    function LoginComponent(_loginService, _route, _router) {
-        this._loginService = _loginService;
+    function LoginComponent(_userService, _route, _router) {
+        this._userService = _userService;
         this._route = _route;
         this._router = _router;
         this.titulo = "Formulario de login";
@@ -35,8 +35,8 @@ var LoginComponent = (function () {
             "password": "",
             "getHash": "false"
         };
-        this.identity = this._loginService.getIdentity();
-        this.token = this._loginService.getToken();
+        this.identity = this._userService.getIdentity();
+        this.token = this._userService.getToken();
         if (this.identity != null && this.identity.sub) {
             this._router.navigate(["/index"]);
         }
@@ -44,7 +44,7 @@ var LoginComponent = (function () {
     LoginComponent.prototype.onSubmit = function () {
         var _this = this;
         this.user.getHash = 'false';
-        this._loginService.signUp(this.user).subscribe(function (response) {
+        this._userService.signUp(this.user).subscribe(function (response) {
             var identity = response;
             _this.identity = identity;
             if (identity.length <= 1) {
@@ -54,7 +54,7 @@ var LoginComponent = (function () {
                 if (!identity.status) {
                     localStorage.setItem('identity', JSON.stringify(identity));
                     _this.user.getHash = 'true';
-                    _this._loginService.signUp(_this.user).subscribe(function (response) {
+                    _this._userService.signUp(_this.user).subscribe(function (response) {
                         var token = response;
                         _this.token = token;
                         if (token.length <= 0) {
@@ -87,9 +87,9 @@ var LoginComponent = (function () {
         core_1.Component({
             selector: 'login',
             templateUrl: 'app/view/login.html',
-            providers: [login_service_1.LoginService]
+            providers: [user_service_1.UserService]
         }), 
-        __metadata('design:paramtypes', [login_service_1.LoginService, router_1.ActivatedRoute, router_1.Router])
+        __metadata('design:paramtypes', [user_service_1.UserService, router_1.ActivatedRoute, router_1.Router])
     ], LoginComponent);
     return LoginComponent;
 }());

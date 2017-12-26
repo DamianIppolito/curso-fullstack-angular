@@ -11,24 +11,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 // Importar el núcleo de Angular
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
-var login_service_1 = require('./services/login.service');
+var user_service_1 = require('./services/user.service');
 // Decorador component, indicamos en que etiqueta se va a cargar la plantilla
 var AppComponent = (function () {
-    function AppComponent(_loginService) {
-        this._loginService = _loginService;
+    function AppComponent(_userervice) {
+        this._userervice = _userervice;
     }
     AppComponent.prototype.ngOnInit = function () {
-        this.identity = this._loginService.getIdentity();
-        this.token = this._loginService.getToken();
+        this.identity = this._userervice.getIdentity();
+        this.token = this._userervice.getToken();
     };
     AppComponent = __decorate([
         core_1.Component({
             selector: 'my-app',
             templateUrl: 'app/view/layout.html',
             directives: [router_1.ROUTER_DIRECTIVES],
-            providers: [login_service_1.LoginService]
+            providers: [user_service_1.UserService]
         }), 
-        __metadata('design:paramtypes', [login_service_1.LoginService])
+        __metadata('design:paramtypes', [user_service_1.UserService])
     ], AppComponent);
     return AppComponent;
 }());

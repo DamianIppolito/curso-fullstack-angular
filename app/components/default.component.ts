@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ROUTER_DIRECTIVES, Router, ActivatedRoute} from '@angular/router';
-import {LoginService} from '../services/login.service';
+import {UserService} from '../services/user.service';
 
 @Component({
     selector: 'default',
@@ -13,11 +13,11 @@ export class DefaultComponent {
   public identity;
   public token;
 
-  constructor(private _loginService: LoginService){}
+  constructor(private _userService: UserService){}
 
   ngOnInit(){
-      this.identity = this._loginService.getIdentity();
-      this.token = this._loginService.getToken();
+      this.identity = this._userService.getIdentity();
+      this.token = this._userService.getToken();
       console.log(this.identity);
   }
 }

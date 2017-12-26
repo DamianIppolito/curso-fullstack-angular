@@ -3,7 +3,7 @@ import {Http, Response, Headers} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 
 @Injectable()
-export class LoginService{
+export class UserService{
   public url = 'http://localhost:90/curso-fullstack/symfony/web/app_dev.php';
   public identity;
   public token;
@@ -37,6 +37,14 @@ export class LoginService{
       this.token = null;
     }
 
-    return this.token; 
+    return this.token;
+  }
+
+  register(user_to_register){
+    let json = JSON.stringify(user_to_register);
+    let params =  'json='+json;
+    let headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});
+
+    return this._http.post(this.url+'/user/new', params, {headers: headers}).map(res => res.json());
   }
 }

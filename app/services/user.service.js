@@ -10,18 +10,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
-var LoginService = (function () {
-    function LoginService(_http) {
+var UserService = (function () {
+    function UserService(_http) {
         this._http = _http;
         this.url = 'http://localhost:90/curso-fullstack/symfony/web/app_dev.php';
     }
-    LoginService.prototype.signUp = function (user_to_login) {
+    UserService.prototype.signUp = function (user_to_login) {
         var json = JSON.stringify(user_to_login);
         var params = 'json=' + json;
         var headers = new http_1.Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
         return this._http.post(this.url + '/login', params, { headers: headers }).map(function (res) { return res.json(); });
     };
-    LoginService.prototype.getIdentity = function () {
+    UserService.prototype.getIdentity = function () {
         var identity = JSON.parse(localStorage.getItem('identity'));
         if (identity != 'undefined') {
             this.identity = identity;
@@ -31,7 +31,7 @@ var LoginService = (function () {
         }
         return this.identity;
     };
-    LoginService.prototype.getToken = function () {
+    UserService.prototype.getToken = function () {
         var token = localStorage.getItem('token');
         if (token != 'undefined') {
             this.token = token;
@@ -41,11 +41,17 @@ var LoginService = (function () {
         }
         return this.token;
     };
-    LoginService = __decorate([
+    UserService.prototype.register = function (user_to_register) {
+        var json = JSON.stringify(user_to_register);
+        var params = 'json=' + json;
+        var headers = new http_1.Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
+        return this._http.post(this.url + '/user/new', params, { headers: headers }).map(function (res) { return res.json(); });
+    };
+    UserService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [http_1.Http])
-    ], LoginService);
-    return LoginService;
+    ], UserService);
+    return UserService;
 }());
-exports.LoginService = LoginService;
-//# sourceMappingURL=login.service.js.map
+exports.UserService = UserService;
+//# sourceMappingURL=user.service.js.map

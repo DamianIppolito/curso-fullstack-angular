@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {LoginService} from '../services/login.service';
+import {UserService} from '../services/user.service';
 import {ROUTER_DIRECTIVES, Router, ActivatedRoute} from '@angular/router';
 
 @Component({
     selector: 'login',
     templateUrl: 'app/view/login.html',
-    providers: [LoginService]
+    providers: [UserService]
 })
 
 export class LoginComponent implements OnInit {
@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
 
 
   constructor(
-    private _loginService: LoginService,
+    private _userService: UserService,
     private _route: ActivatedRoute,
     private _router: Router
   ){}
@@ -43,8 +43,8 @@ export class LoginComponent implements OnInit {
         "getHash" : "false"
       };
 
-      this.identity = this._loginService.getIdentity();
-      this.token = this._loginService.getToken();
+      this.identity = this._userService.getIdentity();
+      this.token = this._userService.getToken();
       if(this.identity != null && this.identity.sub){
         this._router.navigate(["/index"]);
       }
@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit(){
     this.user.getHash = 'false';
-    this._loginService.signUp(this.user).subscribe(
+    this._userService.signUp(this.user).subscribe(
       response => {
         let identity = response;
         this.identity = identity;
@@ -63,7 +63,7 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('identity', JSON.stringify(identity));
 
             this.user.getHash = 'true';
-            this._loginService.signUp(this.user).subscribe(
+            this._userService.signUp(this.user).subscribe(
               response => {
                 let token = response;
                 this.token = token;

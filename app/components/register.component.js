@@ -10,11 +10,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
-var login_service_1 = require('../services/login.service');
+var user_service_1 = require('../services/user.service');
 var user_1 = require('../model/user');
 var RegisterComponent = (function () {
-    function RegisterComponent(_loginService, _route, _router) {
-        this._loginService = _loginService;
+    function RegisterComponent(_userService, _route, _router) {
+        this._userService = _userService;
         this._route = _route;
         this._router = _router;
         this.titulo = "Registro";
@@ -22,14 +22,30 @@ var RegisterComponent = (function () {
     RegisterComponent.prototype.ngOnInit = function () {
         this.user = new user_1.User(1, "user", "", "", "", "", "null");
     };
+    RegisterComponent.prototype.onSubmit = function () {
+        var _this = this;
+        console.log(this.user);
+        this._userService.register(this.user).subscribe(function (response) {
+            _this.status = response.status;
+            if (_this.status != 'success') {
+                _this.status != 'error';
+            }
+        }, function (error) {
+            _this.errorMessage = error;
+            if (_this.errorMessage != null) {
+                console.log(_this.errorMessage);
+                alert('Error en la petición');
+            }
+        });
+    };
     RegisterComponent = __decorate([
         core_1.Component({
             selector: 'register',
             templateUrl: 'app/view/register.html',
             directives: [router_1.ROUTER_DIRECTIVES],
-            providers: [login_service_1.LoginService]
+            providers: [user_service_1.UserService]
         }), 
-        __metadata('design:paramtypes', [login_service_1.LoginService, router_1.ActivatedRoute, router_1.Router])
+        __metadata('design:paramtypes', [user_service_1.UserService, router_1.ActivatedRoute, router_1.Router])
     ], RegisterComponent);
     return RegisterComponent;
 }());

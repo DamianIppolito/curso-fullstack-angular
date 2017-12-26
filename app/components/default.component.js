@@ -10,15 +10,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
-var login_service_1 = require('../services/login.service');
+var user_service_1 = require('../services/user.service');
 var DefaultComponent = (function () {
-    function DefaultComponent(_loginService) {
-        this._loginService = _loginService;
+    function DefaultComponent(_userService) {
+        this._userService = _userService;
         this.titulo = "Portada";
     }
     DefaultComponent.prototype.ngOnInit = function () {
-        this.identity = this._loginService.getIdentity();
-        this.token = this._loginService.getToken();
+        this.identity = this._userService.getIdentity();
+        this.token = this._userService.getToken();
         console.log(this.identity);
     };
     DefaultComponent = __decorate([
@@ -27,7 +27,7 @@ var DefaultComponent = (function () {
             templateUrl: 'app/view/default.html',
             directives: [router_1.ROUTER_DIRECTIVES],
         }), 
-        __metadata('design:paramtypes', [login_service_1.LoginService])
+        __metadata('design:paramtypes', [user_service_1.UserService])
     ], DefaultComponent);
     return DefaultComponent;
 }());
