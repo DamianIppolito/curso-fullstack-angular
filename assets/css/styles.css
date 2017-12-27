@@ -1,2 +1,19 @@
 .main{margin-top:65px}
+
 #credentials-top .glyphicon{margin-right: 5px;}
+
+.user-image{
+  width: 35px;
+  height: 35px;
+  overflow: hidden;
+  border-radius: 50%;
+  margin-top:8px;
+}
+
+.user-image img{
+  margin: 0;
+  width: 65px;
+  padding: 0;
+  margin-left: -20px;
+  margin-top: -20px;
+}

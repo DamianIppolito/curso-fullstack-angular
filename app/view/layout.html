@@ -18,6 +18,11 @@
           <li><a class="navbar-brand" [routerLink]="['/index']" *ngIf="identity">Crear Video</a></li>
         </ul>
         <ul *ngIf="identity" class="nav navbar-nav navbar-right" id="credentials-top">
+          <li>
+            <a [routerLink]="['/index']" class="user-image">
+              <img src="http://localhost:90/curso-fullstack/symfony/web/uploads/users/{{identity.image}}" alt="{{identity.name}} {{identity.surname}}"/>
+            </a>
+          </li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
               {{identity.name}} {{identity.surname}} <span class="caret"></span>
