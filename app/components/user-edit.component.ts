@@ -8,7 +8,7 @@ import {User} from '../model/user';
     selector: 'user-edit',
     templateUrl: 'app/view/user-edit.html',
     directives: [ROUTER_DIRECTIVES],
-    providers: [UserService]
+    providers: [UserService, UploadService]
 })
 
 export class UserEditComponent implements OnInit{
@@ -21,6 +21,7 @@ export class UserEditComponent implements OnInit{
 
   constructor(
     private _userService: UserService,
+    private _uploadService: UploadService,
     private _route: ActivatedRoute,
     private _router: Router
   ){}
@@ -66,8 +67,23 @@ export class UserEditComponent implements OnInit{
     );
   }
 
+  public filesToUpload : Array<File>;
+  public resultUpload;
+
   fileChangeEvent(fileInput: any){
     console.log("Evento lanzado");
+    this.filesToUpload = <Array<File>>fileInput.target.files;
+    let token = this._userService.getToken();
+    let url = "http://localhost:90/curso-fullstack/symfony/web/app_dev.php/user/upload-user-image";
+    this._uploadService.makeFileRequest(token, url, ['image'], this.filesToUpload).then(
+      (result) => {
+        this.resultUpload = result;
+        console.log(this.resultUpload);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
 }

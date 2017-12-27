@@ -25,7 +25,7 @@ var UploadService = (function () {
             formData.append("authorization", token);
             xhr.onreadystatechange = function () {
                 if (xhr.readyState == 4) {
-                    if (xhr.readyState == 200) {
+                    if (xhr.status == 200) {
                         resolve(JSON.parse(xhr.response));
                     }
                     else {
@@ -35,12 +35,26 @@ var UploadService = (function () {
             };
             xhr.upload.addEventListener("progress", function (event) {
                 var progresbar = document.getElementById('upload-progress-bar');
-                var percent = (event.load / event.total) * 100;
+                var percent = (event.loaded / event.total) * 100;
+                console.log(percent);
                 var prc = Math.round(percent).toString();
                 progresbar.setAttribute("value", prc);
                 progresbar.style.width = prc + "%";
                 document.getElementById('status').innerHTML = Math.round(percent) + "subido... por favor espera a que termine";
             }, false);
+            xhr.addEventListener("load", function () {
+                var progresbar = document.getElementById('upload-progress-bar');
+                var prc = "0";
+                document.getElementById('status').innerHTML = "Subida completada";
+                progresbar.setAttribute("value", prc);
+                progresbar.setAttribute("aria-valuenow", prc);
+                progresbar.style.width = prc + "%";
+            }, false);
+            xhr.addEventListener("error", function () {
+                document.getElementById('status').innerHTML = "Subida abortada";
+            }, false);
+            xhr.open("POST", url, true);
+            xhr.send(formData);
         });
     };
     UploadService = __decorate([
