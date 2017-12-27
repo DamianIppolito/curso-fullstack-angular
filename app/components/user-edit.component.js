@@ -58,6 +58,9 @@ var UserEditComponent = (function () {
             }
         });
     };
+    UserEditComponent.prototype.fileChangeEvent = function (fileInput) {
+        console.log("Evento lanzado");
+    };
     UserEditComponent = __decorate([
         core_1.Component({
             selector: 'user-edit',

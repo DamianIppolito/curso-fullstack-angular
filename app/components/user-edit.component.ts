@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ROUTER_DIRECTIVES, Router, ActivatedRoute} from '@angular/router';
 import {UserService} from '../services/user.service';
+import {UploadService} from '../services/upload.service';
 import {User} from '../model/user';
 
 @Component({
@@ -63,6 +64,10 @@ export class UserEditComponent implements OnInit{
         }
       }
     );
+  }
+
+  fileChangeEvent(fileInput: any){
+    console.log("Evento lanzado");
   }
 
 }
