@@ -28,6 +28,9 @@ export class UploadService{
         }
       }
 
+      document.getElementById('upload-progress-bar').setAttribute("value", "0");
+      document.getElementById('upload-progress-bar').style.width = "0%";
+
       xhr.upload.addEventListener("progress", function(event:any){
         var progresbar = document.getElementById('upload-progress-bar');
         var percent = (event.loaded / event.total) * 100;
@@ -40,7 +43,7 @@ export class UploadService{
 
       xhr.addEventListener("load", function(){
         var progresbar = document.getElementById('upload-progress-bar');
-        let prc = "0";
+        let prc = "100";
         document.getElementById('status').innerHTML = "Subida completada";
         progresbar.setAttribute("value", prc);
         progresbar.setAttribute("aria-valuenow", prc);
