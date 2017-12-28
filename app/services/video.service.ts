@@ -4,7 +4,7 @@ import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class VideoService{
-  public url = 'http://localhost:90/curso-fullstack/symfony/web/app_dev.php';
+  public url = 'http://localhost:90/curso-fullstack/symfony/web/app_dev.php/video';
   public identity;
   public token;
 
@@ -15,6 +15,10 @@ export class VideoService{
     let params =  'json='+json+'&authorization='+token;
     let headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});
 
-    return this._http.post(this.url+'/video/new', params, {headers: headers}).map(res => res.json());
+    return this._http.post(this.url+'/new', params, {headers: headers}).map(res => res.json());
+  }
+
+  getVideo(id){
+    return this._http.get(this.url+'/detail/'+id).map(res => res.json());
   }
 }

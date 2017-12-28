@@ -13,13 +13,16 @@ var http_1 = require('@angular/http');
 var VideoService = (function () {
     function VideoService(_http) {
         this._http = _http;
-        this.url = 'http://localhost:90/curso-fullstack/symfony/web/app_dev.php';
+        this.url = 'http://localhost:90/curso-fullstack/symfony/web/app_dev.php/video';
     }
     VideoService.prototype.create = function (token, video) {
         var json = JSON.stringify(video);
         var params = 'json=' + json + '&authorization=' + token;
         var headers = new http_1.Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
-        return this._http.post(this.url + '/video/new', params, { headers: headers }).map(function (res) { return res.json(); });
+        return this._http.post(this.url + '/new', params, { headers: headers }).map(function (res) { return res.json(); });
+    };
+    VideoService.prototype.getVideo = function (id) {
+        return this._http.get(this.url + '/detail/' + id).map(function (res) { return res.json(); });
     };
     VideoService = __decorate([
         core_1.Injectable(), 

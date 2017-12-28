@@ -23,7 +23,19 @@ var VideoDetailComponent = (function () {
         var _this = this;
         this._route.params.subscribe(function (params) {
             var id = +params["id"];
-            _this.numero = id;
+            _this._videoService.getVideo(id).subscribe(function (response) {
+                _this.video = response.data;
+                _this.status = response.status;
+                if (_this.status != 'success') {
+                    _this._router.navigate(['/index']);
+                }
+            }, function (error) {
+                _this.errorMessage = error;
+                if (_this.errorMessage != null) {
+                    console.log(_this.errorMessage);
+                    alert('Error en la petición2');
+                }
+            });
         });
     };
     VideoDetailComponent = __decorate([
