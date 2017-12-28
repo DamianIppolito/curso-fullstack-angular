@@ -5,4 +5,18 @@
   <hr/>
   <h3>{{video.title}}</h3>
   <hr/>
+  <div class="col-md-8 player-container">
+    <video controls id="video-player" poster="http://localhost:90/curso-fullstack/symfony/web/uploads/video_images/video_{{video.id}}/{{video.image}}">
+      <source src="http://localhost:90/curso-fullstack/symfony/web/uploads/video_files/video_{{video.id}}/{{video.videoPath}}" type="video/mp4">
+      Tu navegador no es compatible con html5
+    </video>
+    <div class="panel panel-default video-data">
+      <div class="panel-heading">
+        <h3 class="panel-title">Subido por <strong>{{video.user.name}} {{video.user.surname}}</strong> el {{video.createdAt.timestamp}}</h3>
+      </div>
+      <div class="panel-body">
+        {{video.descpirtion}}
+      </div>
+    </div>
+  </div>
 </div>

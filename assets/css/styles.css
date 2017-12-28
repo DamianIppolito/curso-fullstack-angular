@@ -17,3 +17,15 @@
   margin-left: -13px;
   margin-top: -13px;
 }
+
+.col-md-8.player-container{
+  padding-left:0px;
+  padding-right:0px;
+}
+#video-player{
+  width: 100%;
+}
+
+.video-data{
+  margin-top: 15px;
+}
