@@ -18,6 +18,9 @@ export class VideoNewComponent implements OnInit{
   public video;
   public errorMessage: string;
   public status;
+  public uploadedImage;
+  public filesToUpload: Array<File>;
+  public resultUpload;
 
   constructor(
     private _userService: UserService,
@@ -25,7 +28,9 @@ export class VideoNewComponent implements OnInit{
     private _videoService: VideoService,
     private _route: ActivatedRoute,
     private _router: Router
-  ){}
+  ){
+    this.uploadedImage = false;
+  }
 
   ngOnInit(){
     this.video = new Video(1,"","","public","null","null",null,null);
@@ -55,6 +60,22 @@ export class VideoNewComponent implements OnInit{
           console.log(this.errorMessage);
           alert('Error en la petición');
         }
+      }
+    );
+  }
+
+  fileChangeEventImage(fileInput: any){
+    this.filesToUpload = <Array<File>>fileInput.target.files;
+    let token = this._userService.getToken();
+    let url = "http://localhost:90/curso-fullstack/symfony/web/app_dev.php/video/upload-image/"+this.video.id;
+    this._uploadService.makeFileRequest(token, url, ['image'], this.filesToUpload).then(
+      (result) => {
+        this.resultUpload = result;
+        this.video.image = this.resultUpload.filename;
+        console.log(this.video);
+      },
+      (error) => {
+        console.log(error);
       }
     );
   }

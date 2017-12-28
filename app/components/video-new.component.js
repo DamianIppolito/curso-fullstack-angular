@@ -22,6 +22,7 @@ var VideoNewComponent = (function () {
         this._route = _route;
         this._router = _router;
         this.titulo = "Crear un nuevo video";
+        this.uploadedImage = false;
     }
     VideoNewComponent.prototype.ngOnInit = function () {
         this.video = new video_1.Video(1, "", "", "public", "null", "null", null, null);
@@ -49,6 +50,19 @@ var VideoNewComponent = (function () {
                 console.log(_this.errorMessage);
                 alert('Error en la petición');
             }
+        });
+    };
+    VideoNewComponent.prototype.fileChangeEventImage = function (fileInput) {
+        var _this = this;
+        this.filesToUpload = fileInput.target.files;
+        var token = this._userService.getToken();
+        var url = "http://localhost:90/curso-fullstack/symfony/web/app_dev.php/video/upload-image/" + this.video.id;
+        this._uploadService.makeFileRequest(token, url, ['image'], this.filesToUpload).then(function (result) {
+            _this.resultUpload = result;
+            _this.video.image = _this.resultUpload.filename;
+            console.log(_this.video);
+        }, function (error) {
+            console.log(error);
         });
     };
     VideoNewComponent = __decorate([
