@@ -18,6 +18,7 @@ var VideoDetailComponent = (function () {
         this._videoService = _videoService;
         this._route = _route;
         this._router = _router;
+        this.loading = 'show';
     }
     VideoDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -29,6 +30,7 @@ var VideoDetailComponent = (function () {
                 if (_this.status != 'success') {
                     _this._router.navigate(['/index']);
                 }
+                _this.loading = 'hide';
             }, function (error) {
                 _this.errorMessage = error;
                 if (_this.errorMessage != null) {

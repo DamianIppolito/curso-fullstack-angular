@@ -17,13 +17,16 @@ export class VideoDetailComponent implements OnInit{
   public errorMessage;
   public video;
   public status;
+  public loading;
 
   constructor(
     private _userService: UserService,
     private _videoService: VideoService,
     private _route: ActivatedRoute,
     private _router: Router
-  ){}
+  ){
+    this.loading = 'show';
+  }
 
   ngOnInit(){
     this._route.params.subscribe(params => {
@@ -36,6 +39,7 @@ export class VideoDetailComponent implements OnInit{
           if(this.status != 'success'){
             this._router.navigate(['/index']);
           }
+          this.loading = 'hide';
         },
         error => {
           this.errorMessage = <any>error;
