@@ -12,11 +12,13 @@ var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var upload_service_1 = require('../services/upload.service');
 var user_service_1 = require('../services/user.service');
+var video_service_1 = require('../services/video.service');
 var video_1 = require('../model/video');
 var VideoNewComponent = (function () {
-    function VideoNewComponent(_userService, _uploadService, _route, _router) {
+    function VideoNewComponent(_userService, _uploadService, _videoService, _route, _router) {
         this._userService = _userService;
         this._uploadService = _uploadService;
+        this._videoService = _videoService;
         this._route = _route;
         this._router = _router;
         this.titulo = "Crear un nuevo video";
@@ -28,16 +30,35 @@ var VideoNewComponent = (function () {
         this.video.status = value;
     };
     VideoNewComponent.prototype.onSubmit = function () {
-        console.log(this.video);
+        var _this = this;
+        var token = this._userService.getToken();
+        this._videoService.create(token, this.video).subscribe(function (response) {
+            _this.status = response.status;
+            console.log(response.status);
+            console.log(response.data);
+            if (_this.status != 'success') {
+                _this.status = 'error';
+            }
+            else {
+                _this.video = response.data;
+                console.log(_this.video);
+            }
+        }, function (error) {
+            _this.errorMessage = error;
+            if (_this.errorMessage != null) {
+                console.log(_this.errorMessage);
+                alert('Error en la petición');
+            }
+        });
     };
     VideoNewComponent = __decorate([
         core_1.Component({
             selector: 'video-new',
             templateUrl: 'app/view/video-new.html',
             directives: [router_1.ROUTER_DIRECTIVES],
-            providers: [user_service_1.UserService, upload_service_1.UploadService]
+            providers: [user_service_1.UserService, upload_service_1.UploadService, video_service_1.VideoService]
         }), 
-        __metadata('design:paramtypes', [user_service_1.UserService, upload_service_1.UploadService, router_1.ActivatedRoute, router_1.Router])
+        __metadata('design:paramtypes', [user_service_1.UserService, upload_service_1.UploadService, video_service_1.VideoService, router_1.ActivatedRoute, router_1.Router])
     ], VideoNewComponent);
     return VideoNewComponent;
 }());
