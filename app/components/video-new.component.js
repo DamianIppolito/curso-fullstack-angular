@@ -65,6 +65,26 @@ var VideoNewComponent = (function () {
             console.log(error);
         });
     };
+    VideoNewComponent.prototype.nextUploadVideo = function () {
+        this.uploadedImage = true;
+    };
+    VideoNewComponent.prototype.fileChangeEventVideo = function (fileInput) {
+        var _this = this;
+        this.filesToUpload = fileInput.target.files;
+        var token = this._userService.getToken();
+        console.log(token);
+        var url = "http://localhost:90/curso-fullstack/symfony/web/app_dev.php/video/upload-video/" + this.video.id;
+        this._uploadService.makeFileRequest(token, url, ['video'], this.filesToUpload).then(function (result) {
+            _this.resultUpload = result;
+            _this.video.videoPath = _this.resultUpload.filename;
+            console.log(_this.video);
+        }, function (error) {
+            console.log(error);
+        });
+    };
+    VideoNewComponent.prototype.redirectToVideo = function () {
+        this._router.navigate(['/index']);
+    };
     VideoNewComponent = __decorate([
         core_1.Component({
             selector: 'video-new',

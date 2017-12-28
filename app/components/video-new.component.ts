@@ -79,4 +79,29 @@ export class VideoNewComponent implements OnInit{
       }
     );
   }
+
+  nextUploadVideo(){
+    this.uploadedImage = true;
+  }
+
+  fileChangeEventVideo(fileInput: any){
+    this.filesToUpload = <Array<File>>fileInput.target.files;
+    let token = this._userService.getToken();
+    console.log(token);
+    let url = "http://localhost:90/curso-fullstack/symfony/web/app_dev.php/video/upload-video/"+this.video.id;
+    this._uploadService.makeFileRequest(token, url, ['video'], this.filesToUpload).then(
+      (result) => {
+        this.resultUpload = result;
+        this.video.videoPath = this.resultUpload.filename;
+        console.log(this.video);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  redirectToVideo(){
+    this._router.navigate(['/index']);
+  }
 }
