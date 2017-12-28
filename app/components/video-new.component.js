@@ -12,15 +12,23 @@ var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var upload_service_1 = require('../services/upload.service');
 var user_service_1 = require('../services/user.service');
+var video_1 = require('../model/video');
 var VideoNewComponent = (function () {
     function VideoNewComponent(_userService, _uploadService, _route, _router) {
         this._userService = _userService;
         this._uploadService = _uploadService;
         this._route = _route;
         this._router = _router;
+        this.titulo = "Crear un nuevo video";
     }
     VideoNewComponent.prototype.ngOnInit = function () {
-        console.log("Componente video new cargado");
+        this.video = new video_1.Video(1, "", "", "public", "null", "null", null, null);
+    };
+    VideoNewComponent.prototype.callVideoStatus = function (value) {
+        this.video.status = value;
+    };
+    VideoNewComponent.prototype.onSubmit = function () {
+        console.log(this.video);
     };
     VideoNewComponent = __decorate([
         core_1.Component({

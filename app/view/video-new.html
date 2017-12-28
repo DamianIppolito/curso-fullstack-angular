@@ -1,5 +1,29 @@
 <div class="col-md-12">
   <hr/>
-  <h1>Crear un nuevo video</h1>
+  <h1>{{titulo}}</h1>
   <hr/>
+
+  <form class="col-md-4" #newVideoForm="ngForm" (ngSubmit)="onSubmit()">
+    <p>
+      <label for="">Titulo</label>
+      <input type="text" class="form-control" #title="ngForm" ngControl="title" [(ngModel)]="video.title" required/>
+      <span *ngIf="!title.valid && title.touched">El titulo no es valido</span>
+    </p>
+
+    <p>
+      <label for="">Descripción</label>
+      <textarea class="form-control" #description="ngForm" [(ngModel)]="video.description"></textarea>
+      <span *ngIf="!title.valid && title.touched">El titulo no es valido</span>
+    </p>
+
+    <p>
+      <label for="">Estado</label>
+      <select class="form-control" (change)="callVideoStatus(videostatus.value)" #videostatus>
+        <option value="public" [attr.selected]="video.status === 'public' ? 'selected' : null">Público</option>
+        <option value="private" [attr.selected]="video.status === 'private' ? 'selected' : null">Privado</option>
+      </select>
+    </p>
+
+    <input type="submit" value="Crear Video" class="btn btn-success"/>
+  </form>
 </div>
