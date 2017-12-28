@@ -20,7 +20,11 @@ var VideoDetailComponent = (function () {
         this._router = _router;
     }
     VideoDetailComponent.prototype.ngOnInit = function () {
-        alert("Componente detalle de video cargado");
+        var _this = this;
+        this._route.params.subscribe(function (params) {
+            var id = +params["id"];
+            _this.numero = id;
+        });
     };
     VideoDetailComponent = __decorate([
         core_1.Component({
