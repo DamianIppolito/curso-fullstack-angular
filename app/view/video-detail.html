@@ -15,9 +15,11 @@
         <h3 class="panel-title">Subido por <strong>{{video.user.name}} {{video.user.surname}}</strong> el {{video.createdAt.timestamp | generateDate}}</h3>
       </div>
       <div class="panel-body">
-        {{video.descpirtion}}
+        {{video.description}}
       </div>
     </div>
+    <!-- COMPONENTE DE COMENTARIOS -->
+    <comments *ngIf="identity"></comments>
   </div>
   <div class="col-md-4">
     <h3>Otros videos</h3>
