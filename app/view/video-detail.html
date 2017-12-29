@@ -12,7 +12,7 @@
     </video>
     <div class="panel panel-default video-data">
       <div class="panel-heading">
-        <h3 class="panel-title">Subido por <strong>{{video.user.name}} {{video.user.surname}}</strong> el {{video.createdAt.timestamp}}</h3>
+        <h3 class="panel-title">Subido por <strong>{{video.user.name}} {{video.user.surname}}</strong> el {{video.createdAt.timestamp | generateDate}}</h3>
       </div>
       <div class="panel-body">
         {{video.descpirtion}}
