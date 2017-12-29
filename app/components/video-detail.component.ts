@@ -20,6 +20,8 @@ export class VideoDetailComponent implements OnInit{
   public video;
   public status;
   public loading;
+  public latestVideos;
+  public statusLatestVideos;
 
   constructor(
     private _userService: UserService,
@@ -48,6 +50,24 @@ export class VideoDetailComponent implements OnInit{
           if(this.errorMessage != null){
             console.log(this.errorMessage);
             alert('Error en la petición2');
+          }
+        }
+      );
+
+      this._videoService.getLatestVideos().subscribe(
+        response => {
+          this.latestVideos = response.data;
+          this.statusLatestVideos = response.status;
+
+          if(this.statusLatestVideos != 'success'){
+            this._router.navigate(['/index']);
+          }
+        },
+        error => {
+          this.errorMessage = <any>error;
+          if(this.errorMessage != null){
+            console.log(this.errorMessage);
+            alert('Error en la petición3');
           }
         }
       );

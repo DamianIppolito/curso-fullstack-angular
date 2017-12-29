@@ -39,6 +39,19 @@ var VideoDetailComponent = (function () {
                     alert('Error en la petición2');
                 }
             });
+            _this._videoService.getLatestVideos().subscribe(function (response) {
+                _this.latestVideos = response.data;
+                _this.statusLatestVideos = response.status;
+                if (_this.statusLatestVideos != 'success') {
+                    _this._router.navigate(['/index']);
+                }
+            }, function (error) {
+                _this.errorMessage = error;
+                if (_this.errorMessage != null) {
+                    console.log(_this.errorMessage);
+                    alert('Error en la petición3');
+                }
+            });
         });
     };
     VideoDetailComponent = __decorate([

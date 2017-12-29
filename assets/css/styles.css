@@ -29,3 +29,35 @@
 .video-data{
   margin-top: 15px;
 }
+
+/* ULTIMOS VIDEOS */
+#videos-list{
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+  margin-top: 20px;
+}
+
+.last-video-item{
+  margin-bottom: 5px;
+  font-size: 13px !important;
+}
+
+.last-video-item .last-video-image-thumb{
+  width: 80px;
+  height: 62px;
+  overflow: hidden;
+  background: #e7e7e7;
+}
+
+.last-video-item .last-video-image-thumb img{
+  width:80px;
+}
+
+.last-video-item .data{
+  border: 1px solid #dddddd;
+  border-radius: 0px 4px 4px 0px;
+  padding: 10px;
+  border-left: 0px;
+  height: 62px;
+}
