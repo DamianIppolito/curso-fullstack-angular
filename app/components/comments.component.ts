@@ -13,6 +13,8 @@ import {Video} from '../model/video';
 
 export class CommentsComponent implements OnInit{
   public titulo: string = "Comentarios";
+  public comment;
+  public identity;
 
   constructor(
     private _userService: UserService,
@@ -20,5 +22,20 @@ export class CommentsComponent implements OnInit{
     private _router: Router
   ){}
 
-  ngOnInit(){}
+  ngOnInit(){
+    this.identity = this._userService.getIdentity();
+    this._route.params.subscribe(
+      params => {
+        let id = +params["id"];
+        this.comment = {
+          "video_id" : id,
+          "body" : ""
+        };
+      }
+    );
+  }
+
+  onSubmit(){
+    console.log(this.comment);
+  }
 }

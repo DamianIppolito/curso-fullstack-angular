@@ -18,7 +18,20 @@ var CommentsComponent = (function () {
         this._router = _router;
         this.titulo = "Comentarios";
     }
-    CommentsComponent.prototype.ngOnInit = function () { };
+    CommentsComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.identity = this._userService.getIdentity();
+        this._route.params.subscribe(function (params) {
+            var id = +params["id"];
+            _this.comment = {
+                "video_id": id,
+                "body": ""
+            };
+        });
+    };
+    CommentsComponent.prototype.onSubmit = function () {
+        console.log(this.comment);
+    };
     CommentsComponent = __decorate([
         core_1.Component({
             selector: 'comments',
