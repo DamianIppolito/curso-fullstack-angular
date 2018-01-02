@@ -19,6 +19,8 @@ var DefaultComponent = (function () {
         this._route = _route;
         this._router = _router;
         this.titulo = "Portada";
+        this.pageNext = 1;
+        this.pagePrev = 1;
     }
     DefaultComponent.prototype.ngOnInit = function () {
         this.loading = 'show';
@@ -34,6 +36,7 @@ var DefaultComponent = (function () {
             if (!page) {
                 page = 1;
             }
+            _this.loading = 'show';
             _this._videoService.getVideos(page).subscribe(function (response) {
                 _this.status = response.status;
                 if (_this.status != 'success') {
@@ -42,6 +45,22 @@ var DefaultComponent = (function () {
                 else {
                     _this.videos = response.data;
                     _this.loading = 'hide';
+                    _this.pages = [];
+                    for (var i = 0; i < response.total_pages; i++) {
+                        _this.pages.push(i);
+                    }
+                    if (page >= 2) {
+                        _this.pagePrev = (page - 1);
+                    }
+                    else {
+                        _this.pagePrev = page;
+                    }
+                    if (page < response.total_pages || page == 1) {
+                        _this.pageNext = (page + 1);
+                    }
+                    else {
+                        _this.pageNext = page;
+                    }
                     console.log(_this.videos);
                 }
             }, function (error) {

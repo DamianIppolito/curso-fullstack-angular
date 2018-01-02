@@ -12,7 +12,7 @@
     <div class="loader" *ngIf="loading == 'show'">
       <img src="assets/images/ajax-gray.gif" alt=""/>
     </div>
-    <ul id="videos-list" *ngIf="videos">
+    <ul id="videos-list" *ngIf="videos && loading == 'hide'">
       <li *ngFor="let video of videos" class="col-md-4 video-item pull-left">
         <div class="video-image-thumb">
           <img src="http://localhost:90/curso-fullstack/symfony/web/uploads/video_images/video_{{video.id}}/{{video.image}}" *ngIf="video.image" alt=""/>
@@ -28,4 +28,16 @@
       </li>
     </ul>
   </div>
+  <div class="clearfix"></div>
+  <ul class="pagination">
+    <li>
+      <a [routerLink]="['/index', pagePrev]" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+    </li>
+    <li *ngFor="let page of pages">
+      <a [routerLink]="['/index', page + 1]">{{page + 1}}</a>
+    </li>
+    <li>
+      <a [routerLink]="['/index', pageNext]" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+    </li>
+  </ul>
 </div>

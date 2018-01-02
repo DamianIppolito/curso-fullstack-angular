@@ -17,29 +17,37 @@ export class DefaultComponent {
   public errorMessage;
   public status;
   public loading;
+  public pages;
+  public pagePrev;
+  public pageNext;
 
   constructor(
     private _userService: UserService,
     private _videoService: VideoService,
     private _route: ActivatedRoute,
     private _router: Router
-  ){}
+  ){
+    this.pageNext = 1;
+    this.pagePrev = 1;
+  }
 
   ngOnInit(){
     this.loading = 'show';
-      this.identity = this._userService.getIdentity();
-      this.token = this._userService.getToken();
-      this.getAllVideos();
-      console.log(this.identity);
+    this.identity = this._userService.getIdentity();
+    this.token = this._userService.getToken();
+    this.getAllVideos();
+    console.log(this.identity);
   }
 
   getAllVideos(){
+
     this._route.params.subscribe(
       params => {
         let page = +params["page"];
         if(!page){
           page = 1;
         }
+        this.loading = 'show';
         this._videoService.getVideos(page).subscribe(
           response => {
             this.status = response.status;
@@ -48,6 +56,21 @@ export class DefaultComponent {
             }else{
               this.videos = response.data;
               this.loading = 'hide';
+              this.pages = [];
+              for(let i = 0;i < response.total_pages; i++){
+                this.pages.push(i);
+              }
+              if(page >= 2){
+                this.pagePrev = (page - 1);
+              }else{
+                this.pagePrev = page;
+              }
+
+              if(page < response.total_pages || page == 1){
+                this.pageNext = (page + 1);
+              }else{
+                this.pageNext = page;
+              }
               console.log(this.videos);
             }
           },
