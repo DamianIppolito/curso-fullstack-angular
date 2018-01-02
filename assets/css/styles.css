@@ -1,5 +1,9 @@
 .main{margin-top:65px}
 
+.loader{
+  margin-bottom: 30px;
+}
+
 #credentials-top .glyphicon{margin-right: 5px;}
 
 .user-image{

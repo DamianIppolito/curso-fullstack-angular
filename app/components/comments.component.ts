@@ -22,13 +22,16 @@ export class CommentsComponent implements OnInit{
   public status;
   public commentList;
   public commentStatus;
+  public loading;
 
   constructor(
     private _userService: UserService,
     private _commentService : CommentService,
     private _route: ActivatedRoute,
     private _router: Router
-  ){}
+  ){
+    this.loading = 'show';
+  }
 
   ngOnInit(){
     this.identity = this._userService.getIdentity();
@@ -70,6 +73,7 @@ export class CommentsComponent implements OnInit{
   }
 
   getComments(video_id){
+    this.loading = 'show';
     this._commentService.getCommentsOfVideo(video_id).subscribe(
       response => {
         this.commentStatus = response.status;
@@ -77,6 +81,7 @@ export class CommentsComponent implements OnInit{
           this.commentStatus = 'error';
         }else{
           this.commentList = response.data;
+          this.loading = 'hide';
         }
       },
       error => {

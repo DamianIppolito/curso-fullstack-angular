@@ -15,6 +15,11 @@
 </form>
 <div class="clearfix"></div>
 <hr/>
+
+<div class="loader" *ngIf="loading == 'show'">
+  <img src="assets/images/ajax-gray.gif" alt="">
+</div>
+
 <div class="comments-list" *ngIf="commentList">
   <div class="comment-item col-md-12 pull-left" *ngFor="let comment of commentList">
     <div class="panel panel-default comment-data comment-panel-{{comment.id}}">

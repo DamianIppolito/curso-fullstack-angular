@@ -20,6 +20,7 @@ var CommentsComponent = (function () {
         this._route = _route;
         this._router = _router;
         this.titulo = "Comentarios";
+        this.loading = 'show';
     }
     CommentsComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -58,6 +59,7 @@ var CommentsComponent = (function () {
     };
     CommentsComponent.prototype.getComments = function (video_id) {
         var _this = this;
+        this.loading = 'show';
         this._commentService.getCommentsOfVideo(video_id).subscribe(function (response) {
             _this.commentStatus = response.status;
             if (_this.commentStatus != 'success') {
@@ -65,6 +67,7 @@ var CommentsComponent = (function () {
             }
             else {
                 _this.commentList = response.data;
+                _this.loading = 'hide';
             }
         }, function (error) {
             _this.errorMessage = error;
