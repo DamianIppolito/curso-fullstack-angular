@@ -21,6 +21,7 @@ var DefaultComponent = (function () {
         this.titulo = "Portada";
     }
     DefaultComponent.prototype.ngOnInit = function () {
+        this.loading = 'show';
         this.identity = this._userService.getIdentity();
         this.token = this._userService.getToken();
         this.getAllVideos();
@@ -40,6 +41,7 @@ var DefaultComponent = (function () {
                 }
                 else {
                     _this.videos = response.data;
+                    _this.loading = 'hide';
                     console.log(_this.videos);
                 }
             }, function (error) {

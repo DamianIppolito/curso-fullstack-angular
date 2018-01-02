@@ -9,6 +9,9 @@
   </div>
   <hr/>
   <div class="all-videos">
+    <div class="loader" *ngIf="loading == 'show'">
+      <img src="assets/images/ajax-gray.gif" alt=""/>
+    </div>
     <ul id="videos-list" *ngIf="videos">
       <li *ngFor="let video of videos" class="col-md-4 video-item pull-left">
         <div class="video-image-thumb">
