@@ -11,23 +11,54 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var user_service_1 = require('../services/user.service');
+var video_service_1 = require('../services/video.service');
 var DefaultComponent = (function () {
-    function DefaultComponent(_userService) {
+    function DefaultComponent(_userService, _videoService, _route, _router) {
         this._userService = _userService;
+        this._videoService = _videoService;
+        this._route = _route;
+        this._router = _router;
         this.titulo = "Portada";
     }
     DefaultComponent.prototype.ngOnInit = function () {
         this.identity = this._userService.getIdentity();
         this.token = this._userService.getToken();
+        this.getAllVideos();
         console.log(this.identity);
+    };
+    DefaultComponent.prototype.getAllVideos = function () {
+        var _this = this;
+        this._route.params.subscribe(function (params) {
+            var page = +params["page"];
+            if (!page) {
+                page = 1;
+            }
+            _this._videoService.getVideos(page).subscribe(function (response) {
+                _this.status = response.status;
+                if (_this.status != 'success') {
+                    _this.status = 'error';
+                }
+                else {
+                    _this.videos = response.data;
+                    console.log(_this.videos);
+                }
+            }, function (error) {
+                _this.errorMessage = error;
+                if (_this.errorMessage != null) {
+                    console.log(_this.errorMessage);
+                    alert('Error en la petición');
+                }
+            });
+        });
     };
     DefaultComponent = __decorate([
         core_1.Component({
             selector: 'default',
             templateUrl: 'app/view/default.html',
             directives: [router_1.ROUTER_DIRECTIVES],
+            providers: [user_service_1.UserService, video_service_1.VideoService]
         }), 
-        __metadata('design:paramtypes', [user_service_1.UserService])
+        __metadata('design:paramtypes', [user_service_1.UserService, video_service_1.VideoService, router_1.ActivatedRoute, router_1.Router])
     ], DefaultComponent);
     return DefaultComponent;
 }());
