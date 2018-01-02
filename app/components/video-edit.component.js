@@ -31,6 +31,9 @@ var VideoEditComponent = (function () {
     VideoEditComponent.prototype.callVideoStatus = function (value) {
         this.video.status = value;
     };
+    VideoEditComponent.prototype.setChangeUpload = function (value) {
+        this.changeUpload = value;
+    };
     VideoEditComponent.prototype.onSubmit = function () {
         var _this = this;
         this._route.params.subscribe(function (params) {

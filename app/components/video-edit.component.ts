@@ -22,6 +22,7 @@ export class VideoEditComponent implements OnInit{
   public filesToUpload: Array<File>;
   public resultUpload;
   public status_get_video;
+  public changeUpload;
 
   constructor(
     private _userService: UserService,
@@ -40,6 +41,10 @@ export class VideoEditComponent implements OnInit{
 
   callVideoStatus(value){
     this.video.status = value;
+  }
+
+  setChangeUpload(value:string){
+    this.changeUpload = value;
   }
 
   onSubmit(){
