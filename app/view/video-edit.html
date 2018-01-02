@@ -4,15 +4,14 @@
   <hr/>
 
   <div class="alert alert-success" *ngIf="status == 'success'">
-    Datos básicos de tu nuevo Video <strong>{{video.title}}</strong> guardados, ahora añade una imagen y un video!!
+    Datos básicos de tu Video <strong>{{video.title}}</strong> guardados!!
   </div>
 
   <div class="alert alert-danger" *ngIf="status == 'error'">
     Datos básicos no guardados.
   </div>
 
-  <form class="col-md-4" #newVideoForm="ngForm" (ngSubmit)="onSubmit()" *ngIf="status != 'success'">
-    <p>Paso 1 de 3. Añade la información básica de tu video</p>
+  <form class="col-md-4" #updateVideoForm="ngForm" (ngSubmit)="onSubmit()">
     <p>
       <label for="">Titulo</label>
       <input type="text" class="form-control" #title="ngForm" ngControl="title" [(ngModel)]="video.title" required/>
@@ -33,7 +32,7 @@
       </select>
     </p>
 
-    <input type="submit" value="Crear Video" class="btn btn-success"/>
+    <input type="submit" value="Actualizar" class="btn btn-success" [disabled]="!updateVideoForm.form.valid"/>
   </form>
 
   <div class="col-md-4" *ngIf="status == 'success' && uploadedImage == false">
