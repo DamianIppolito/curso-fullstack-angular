@@ -19,4 +19,11 @@ export class CommentService{
   getCommentsOfVideo(video_id){
     return this._http.get(this.url+'/list/'+video_id).map(res => res.json());
   }
+
+  delete(token,id){
+    let params =  'authorization='+token;
+    let headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});
+
+    return this._http.post(this.url+'/delete/'+id, params, {headers: headers}).map(res => res.json());
+  }
 }

@@ -24,6 +24,11 @@ var CommentService = (function () {
     CommentService.prototype.getCommentsOfVideo = function (video_id) {
         return this._http.get(this.url + '/list/' + video_id).map(function (res) { return res.json(); });
     };
+    CommentService.prototype.delete = function (token, id) {
+        var params = 'authorization=' + token;
+        var headers = new http_1.Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
+        return this._http.post(this.url + '/delete/' + id, params, { headers: headers }).map(function (res) { return res.json(); });
+    };
     CommentService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [http_1.Http])

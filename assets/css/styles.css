@@ -4,6 +4,8 @@
   margin-bottom: 30px;
 }
 
+.pointer{cursor: pointer;}
+
 #credentials-top .glyphicon{margin-right: 5px;}
 
 .user-image{

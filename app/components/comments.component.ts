@@ -80,9 +80,9 @@ export class CommentsComponent implements OnInit{
         if(this.commentStatus != 'success'){
           this.commentStatus = 'error';
         }else{
-          this.commentList = response.data;
-          this.loading = 'hide';
+          this.commentList = response.data;          
         }
+        this.loading = 'hide';
       },
       error => {
         this.errorMessage = <any>error;
@@ -92,5 +92,29 @@ export class CommentsComponent implements OnInit{
         }
       }
     );
+  }
+
+  deleteComment(id){
+    let comment_panel = <HTMLElement>document.querySelector(".comment-panel-"+id);
+    if(comment_panel != null){
+      comment_panel.style.display = "none";
+      let token = this._userService.getToken();
+      this._commentService.delete(token, id).subscribe(
+        response => {
+          this.commentStatus = response.status;
+          if(this.commentStatus != 'success'){
+            this.commentStatus = 'error';
+          }else{
+          }
+        },
+        error => {
+          this.errorMessage = <any>error;
+          if(this.errorMessage != null){
+            console.log(this.errorMessage);
+            alert('Error en la petición');
+          }
+        }
+      );
+    }
   }
 }
