@@ -12,6 +12,7 @@ var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var user_service_1 = require('../services/user.service');
 var comment_service_1 = require('../services/comment.service');
+var generate_date_pipe_1 = require('../pipes/generate-date.pipe');
 var CommentsComponent = (function () {
     function CommentsComponent(_userService, _commentService, _route, _router) {
         this._userService = _userService;
@@ -30,6 +31,7 @@ var CommentsComponent = (function () {
                 "body": ""
             };
             //Conseguir comentarios
+            _this.getComments(id);
         });
     };
     CommentsComponent.prototype.onSubmit = function () {
@@ -43,6 +45,26 @@ var CommentsComponent = (function () {
             }
             else {
                 _this.comment.body = "";
+                //Recargar comentarios
+                _this.getComments(_this.comment.video_id);
+            }
+        }, function (error) {
+            _this.errorMessage = error;
+            if (_this.errorMessage != null) {
+                console.log(_this.errorMessage);
+                alert('Error en la petición');
+            }
+        });
+    };
+    CommentsComponent.prototype.getComments = function (video_id) {
+        var _this = this;
+        this._commentService.getCommentsOfVideo(video_id).subscribe(function (response) {
+            _this.commentStatus = response.status;
+            if (_this.commentStatus != 'success') {
+                _this.commentStatus = 'error';
+            }
+            else {
+                _this.commentList = response.data;
             }
         }, function (error) {
             _this.errorMessage = error;
@@ -57,7 +79,8 @@ var CommentsComponent = (function () {
             selector: 'comments',
             templateUrl: 'app/view/comments.html',
             directives: [router_1.ROUTER_DIRECTIVES],
-            providers: [user_service_1.UserService, comment_service_1.CommentService]
+            providers: [user_service_1.UserService, comment_service_1.CommentService],
+            pipes: [generate_date_pipe_1.generateDate]
         }), 
         __metadata('design:paramtypes', [user_service_1.UserService, comment_service_1.CommentService, router_1.ActivatedRoute, router_1.Router])
     ], CommentsComponent);
