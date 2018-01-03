@@ -14,12 +14,21 @@ var router_1 = require('@angular/router');
 var user_service_1 = require('./services/user.service');
 // Decorador component, indicamos en que etiqueta se va a cargar la plantilla
 var AppComponent = (function () {
-    function AppComponent(_userervice) {
+    function AppComponent(_userervice, _router) {
         this._userervice = _userervice;
+        this._router = _router;
     }
     AppComponent.prototype.ngOnInit = function () {
         this.identity = this._userervice.getIdentity();
         this.token = this._userervice.getToken();
+    };
+    AppComponent.prototype.search = function () {
+        if (this.search_string != null) {
+            this._router.navigate(["/search", this.search_string]);
+        }
+        else {
+            this._router.navigate(["/index"]);
+        }
     };
     AppComponent = __decorate([
         core_1.Component({
@@ -28,7 +37,7 @@ var AppComponent = (function () {
             directives: [router_1.ROUTER_DIRECTIVES],
             providers: [user_service_1.UserService]
         }), 
-        __metadata('design:paramtypes', [user_service_1.UserService])
+        __metadata('design:paramtypes', [user_service_1.UserService, router_1.Router])
     ], AppComponent);
     return AppComponent;
 }());

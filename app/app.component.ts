@@ -14,12 +14,24 @@ import {UserService} from './services/user.service';
 export class AppComponent {
   public identity;
   public token;
+  public search_string : string;
 
-  constructor(private _userervice: UserService){}
+  constructor(
+    private _userervice: UserService,
+    private _router : Router
+  ){}
 
   ngOnInit(){
       this.identity = this._userervice.getIdentity();
       this.token = this._userervice.getToken();
+  }
+
+  search(){
+    if(this.search_string != null){
+      this._router.navigate(["/search", this.search_string]);
+    }else{
+      this._router.navigate(["/index"]);
+    }
   }
 
 }
