@@ -93,3 +93,18 @@
   border-left: 0px;
   height: 62px;
 }
+
+/*CANAL*/
+.channel-head{text-align: center;}
+
+.image-channel{
+  width: 150px;
+  height: 150px;
+  border-radius: 500px;
+  overflow: hidden;
+  margin: 0 auto;
+  background: #cccccc;
+}
+
+.image-channel img{height: 160px;}
+/*FIN CANAL*/
