@@ -21,6 +21,7 @@ export class VideoNewComponent implements OnInit{
   public uploadedImage;
   public filesToUpload: Array<File>;
   public resultUpload;
+  public identity;
 
   constructor(
     private _userService: UserService,
@@ -33,7 +34,13 @@ export class VideoNewComponent implements OnInit{
   }
 
   ngOnInit(){
-    this.video = new Video(1,"","","public","null","null",null,null);
+    let identity = this._userService.getIdentity();
+    this.identity = identity;
+    if(identity == null){
+      this._router.navigate(["/index"]);
+    }else{
+      this.video = new Video(1,"","","public","null","null",null,null);
+    }
   }
 
   callVideoStatus(value){
