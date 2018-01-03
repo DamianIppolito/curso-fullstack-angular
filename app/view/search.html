@@ -1,0 +1,39 @@
+<div class="col-md-12">
+  <hr/>
+  <h1>{{titulo}} {{search_string}}</h1>
+  <hr/>
+  <div class="all-videos">
+    <div class="loader" *ngIf="loading == 'show'">
+      <img src="assets/images/ajax-gray.gif" alt=""/>
+    </div>
+    <ul id="videos-list" *ngIf="videos && loading == 'hide'">
+      <li *ngFor="let video of videos" class="col-md-4 video-item pull-left">
+        <div class="video-image-thumb">
+          <img src="http://localhost:90/curso-fullstack/symfony/web/uploads/video_images/video_{{video.id}}/{{video.image}}" *ngIf="video.image" alt=""/>
+        </div>
+        <div class="data">
+          <h4><a [routerLink]="['/video', video.id]">{{video.title}}</a></h4>
+          <p>Subido por <a [routerLink]="['/index']">{{video.user.name}} {{video.user.suirname}}</a></p>
+          <div class="video-buttons" *ngIf="identity && identity != null && identity.sub == video.user.id">
+            <a [routerLink]="['/edit-video', video.id]" class="btn btn-primary">Editar</a>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <div class="clearfix"></div>
+
+  <ul class="pagination" *ngIf="search_string">
+    <li>
+      <a [routerLink]="['/search', search_string, pagePrev]" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+    </li>
+    <li *ngFor="let page of pages">
+      <a [routerLink]="['/search', search_string, page + 1]">{{page + 1}}</a>
+    </li>
+    <li>
+      <a [routerLink]="['/search', search_string, pageNext]" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+    </li>
+  </ul>
+</div>

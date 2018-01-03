@@ -6,6 +6,7 @@ import {UserEditComponent} from './components/user-edit.component';
 import {VideoNewComponent} from './components/video-new.component';
 import {VideoDetailComponent} from './components/video-detail.component';
 import {VideoEditComponent} from './components/video-edit.component';
+import {SearchComponent} from './components/search.component';
 
 
 export const routes: RouterConfig = [
@@ -19,6 +20,9 @@ export const routes: RouterConfig = [
   {path: 'create-video', component: VideoNewComponent},
   {path: 'video/:id', component: VideoDetailComponent},
   {path: 'edit-video/:id', component: VideoEditComponent},
+  {path: 'search', component: SearchComponent},
+  {path: 'search/:search', component: SearchComponent},
+  {path: 'search/:search/:page', component: SearchComponent},
 
 ];
 

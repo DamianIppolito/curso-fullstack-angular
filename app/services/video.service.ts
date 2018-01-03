@@ -40,4 +40,17 @@ export class VideoService{
     }
     return this._http.get(this.url+'/list?page='+page).map(res => res.json());
   }
+
+  search(search = null, page = null){
+    if(page == null){
+      page = 1;
+    }
+    let http : any;
+    if(search == null){
+      http = this._http.get(this.url+'/search').map(res => res.json());
+    }else{
+      http = this._http.get(this.url+'/search/'+search+'?page='+page).map(res => res.json());
+    }
+    return http;
+  }
 }

@@ -40,6 +40,21 @@ var VideoService = (function () {
         }
         return this._http.get(this.url + '/list?page=' + page).map(function (res) { return res.json(); });
     };
+    VideoService.prototype.search = function (search, page) {
+        if (search === void 0) { search = null; }
+        if (page === void 0) { page = null; }
+        if (page == null) {
+            page = 1;
+        }
+        var http;
+        if (search == null) {
+            http = this._http.get(this.url + '/search').map(function (res) { return res.json(); });
+        }
+        else {
+            http = this._http.get(this.url + '/search/' + search + '?page=' + page).map(function (res) { return res.json(); });
+        }
+        return http;
+    };
     VideoService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [http_1.Http])
