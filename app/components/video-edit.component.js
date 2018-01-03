@@ -25,6 +25,8 @@ var VideoEditComponent = (function () {
         this.uploadedImage = false;
     }
     VideoEditComponent.prototype.ngOnInit = function () {
+        this.loading = "show";
+        this.identity = this._userService.getIdentity();
         this.video = new video_1.Video(1, "", "", "public", "null", "null", null, null);
         this.getVideo();
     };
@@ -59,11 +61,20 @@ var VideoEditComponent = (function () {
         var _this = this;
         this._route.params.subscribe(function (params) {
             var id = +params["id"];
+            _this.loading = "show";
             _this._videoService.getVideo(id).subscribe(function (response) {
                 _this.video = response.data;
                 _this.status_get_video = response.status;
                 if (_this.status_get_video != 'success') {
                     _this._router.navigate(['/index']);
+                }
+                else {
+                    if (!_this.identity || _this.identity == null || _this.identity.sub != _this.video.user.id) {
+                        _this._router.navigate(["/index"]);
+                    }
+                    else {
+                        _this.loading = "hide";
+                    }
                 }
             }, function (error) {
                 _this.errorMessage = error;
