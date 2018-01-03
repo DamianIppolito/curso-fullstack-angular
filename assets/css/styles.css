@@ -77,13 +77,16 @@
 
 .last-video-item .last-video-image-thumb{
   width: 80px;
-  height: 62px;
+  height: 81px;
+  margin-top: -1px;
   overflow: hidden;
   background: #e7e7e7;
+  border-radius: 4px 0 0 4px;
 }
 
 .last-video-item .last-video-image-thumb img{
-  width:80px;
+  width:120px;
+  margin-left: -37px;
 }
 
 .last-video-item .data{
@@ -91,7 +94,7 @@
   border-radius: 0px 4px 4px 0px;
   padding: 10px;
   border-left: 0px;
-  height: 62px;
+  height: 82px;
 }
 
 /*CANAL*/
