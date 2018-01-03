@@ -53,4 +53,11 @@ export class VideoService{
     }
     return http;
   }
+
+  getChannel(user, page=null){
+    if(page == null){
+      page = 1;
+    }
+    return this._http.get('http://localhost:90/curso-fullstack/symfony/web/app_dev.php/user/channel/' + user + '?page=' + page).map(res => res.json());
+  }
 }

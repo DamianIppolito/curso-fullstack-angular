@@ -7,6 +7,7 @@ import {VideoNewComponent} from './components/video-new.component';
 import {VideoDetailComponent} from './components/video-detail.component';
 import {VideoEditComponent} from './components/video-edit.component';
 import {SearchComponent} from './components/search.component';
+import {ChannelComponent} from './components/channel.component';
 
 
 export const routes: RouterConfig = [
@@ -23,6 +24,9 @@ export const routes: RouterConfig = [
   {path: 'search', component: SearchComponent},
   {path: 'search/:search', component: SearchComponent},
   {path: 'search/:search/:page', component: SearchComponent},
+  {path: 'channel', component: ChannelComponent},
+  {path: 'channel/:user', component: ChannelComponent},
+  {path: 'channel/:user/:page', component: ChannelComponent},
 
 ];
 
